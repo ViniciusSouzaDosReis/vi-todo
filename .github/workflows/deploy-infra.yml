@@ -5,7 +5,7 @@ on:
     branches:
       - main
     paths:
-      - 'services/infra/**'
+      - 'back-end/services/infra/**'
 
 jobs:
   deploy-infra:
