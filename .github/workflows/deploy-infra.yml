@@ -28,13 +28,13 @@ jobs:
           terraform_version: 1.10.5
 
       - name: Terraform init
-        run: terraform init back-end/services/infra
+        run: terraform -chdir=back-end/services/infra init
 
       - name: Terraform plan
-        run: terraform plan back-end/services/infra
+        run: terraform -chdir=back-end/services/infra plan
 
       - name: Terraform apply
-        run: terraform apply -auto-approve back-end/services/infra
+        run: terraform -chdir=back-end/services/infra apply -auto-approve
 
       - name: Clean up
         run: rm tfplan
