@@ -29,11 +29,11 @@ jobs:
       - name: Terraform init
         run: terraform -chdir=back-end/services/infra init
 
-      - name: Terraform plan
+      - name: Plan Terraform changes
         run: terraform -chdir=back-end/services/infra plan -out=tfplan
 
-      - name: Terraform apply
+      - name: Apply Terraform Changes
         run: terraform -chdir=back-end/services/infra apply -auto-approve
 
       - name: Clean up
-        run: rm tfplan
+        run: rm back-end/services/infra/tfplan
