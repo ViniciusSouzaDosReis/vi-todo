@@ -30,7 +30,7 @@ jobs:
         run: terraform -chdir=back-end/services/infra init
 
       - name: Terraform plan
-        run: terraform -chdir=back-end/services/infra plan
+        run: terraform -chdir=back-end/services/infra plan -out=tfplan
 
       - name: Terraform apply
         run: terraform -chdir=back-end/services/infra apply -auto-approve
