@@ -1,11 +1,11 @@
-name: '⚙️ infra'
+name: "⚙️ infra"
 
 on:
   push:
     branches:
       - main
     paths:
-      - 'back-end/services/infra/**'
+      - "back-end/services/infra/**"
 
 jobs:
   deploy-infra:
@@ -18,20 +18,23 @@ jobs:
 
       - name: Set AWS credentials
         run: |
-          echo "AWS_ACCESS_KEY_ID=${{ secrets.AWS_ACCESS_KEY_ID }}" >> $GITHUB_ENV
-          echo "AWS_SECRET_ACCESS_KEY=${{ secrets.AWS_SECRET_ACCESS_KEY }}" >> $GITHUB_ENV
-          echo "AWS_DEFAULT_REGION=sa-east-1" >> $GITHUB_ENV
           export AWS_ACCESS_KEY_ID=${{ secrets.AWS_ACCESS_KEY_ID }}
           export AWS_SECRET_ACCESS_KEY=${{ secrets.AWS_SECRET_ACCESS_KEY }}
           export AWS_DEFAULT_REGION=sa-east-1
 
-      # - name: Setup Node.js
-      #   uses: actions/setup-node@v2
-      #   with:
-      #     node-version: '14'
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v1
+        with:
+          terraform_version: 1.10.5
 
-      # - name: Install dependencies
-      #   run: npm install
+      - name: Terraform init
+        run: terraform init back-end/services/infra
 
-      # - name: Deploy infra
-      #   run: npm run deploy
+      - name: Terraform plan
+        run: terraform plan back-end/services/infra
+
+      - name: Terraform apply
+        run: terraform apply -auto-approve back-end/services/infra
+
+      - name: Clean up
+        run: rm tfplan
