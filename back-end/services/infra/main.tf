@@ -45,3 +45,4 @@ resource "aws_dynamodb_table" "vi_todo_dev_invetes_table" {
     type = "S"
   }
 }
+

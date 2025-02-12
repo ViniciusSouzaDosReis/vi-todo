@@ -3,7 +3,7 @@ name: "⚙️ infra"
 on:
   push:
     branches:
-      - test/deploy-infra
+      - main
     paths:
       - "back-end/services/infra/**"
 
